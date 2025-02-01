@@ -24,38 +24,8 @@ async function checkConnection(): Promise<void> {
     }
   }
 }
-async function checkIfIndexExist(indexName:string):Promise <boolean>{
-  const result:boolean =await elasticSearchClient.indices.exists({index:indexName});
-  return result;
-}
-async function createIndex(indexName:string):Promise <void>{
-  try{
-const result:boolean=await checkIfIndexExist(indexName);
-if(result){
-  log.info(`Index ${indexName} already exists`);
-}
-else{
-  await elasticSearchClient.indices.create({index:indexName});
-  await elasticSearchClient.indices.refresh({index:indexName});
 
-  log.info(`Index ${indexName} created successfully`);
-  }
-  }catch(error){
-log.error(`An error occurred while creating index ${indexName}`);
-log.log('error', 'AuthService checkConnection() method:', error);
-  }
-}
 
-async function getDocumentById(index:string,gigId:string){
-  try{
-const result:GetResponse=await elasticSearchClient.get({
-  index,
-  id:gigId
-});
-return result._source;
-  }catch(error){
-log.log('error', 'AuthService checkConnection() method:', error);
-  }
-}
 
-export { elasticSearchClient, checkConnection,createIndex,getDocumentById};
+
+export { elasticSearchClient, checkConnection};

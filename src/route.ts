@@ -9,11 +9,12 @@ import { seedRoutes } from "./routes/seed";
 const BASE_PATH='/api/v1/auth'
 
 export function appRoutes(app:Application):void{
-
+console.log("routes called");
   app.use('',healthRoutes());
 
   app.use(BASE_PATH ,verifyGatewayRequest,authRoutes());
   app.use(BASE_PATH ,verifyGatewayRequest,seedRoutes());
   app.use(BASE_PATH ,verifyGatewayRequest,searchRoutes());
   app.use(BASE_PATH ,verifyGatewayRequest,currentUserRoutes());
+  
 };
